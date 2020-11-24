@@ -1,0 +1,20 @@
+{
+    "name" : "lefty/weather",
+    "description": "A weather module for the ramverk1 course.",
+    "license": "MIT",
+    "minimum-stability": "beta",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Anax\\": "src/",
+            "Lefty\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "require": {
+        "anax/anax-cli": "^1.2",
+        "anax/commons": "^2.0"
+    }
+}
