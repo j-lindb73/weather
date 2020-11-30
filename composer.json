@@ -15,6 +15,7 @@
     },
     "require": {
         "anax/anax-cli": "^1.2",
-        "anax/commons": "^2.0"
+        "anax/commons": "^2.0",
+        "anax/anax-ramverk1-me": "^1.0.0"
     }
 }
