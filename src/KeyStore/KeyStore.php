@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Lefty\KeyStore;
 
 use Anax\Commons\ContainerInjectableInterface;
@@ -23,7 +22,6 @@ use Anax\Commons\ContainerInjectableTrait;
 
 class KeyStore implements ContainerInjectableInterface
 {
-
     use ContainerInjectableTrait;
 
     private $keys = [];
