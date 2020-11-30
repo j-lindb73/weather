@@ -43,7 +43,7 @@ class WeatherController implements ContainerInjectableInterface
         $this->db = "active";
     }
 
-    
+
     /**
     * This is the index method action, it handles:
     * ANY METHOD mountpoint
@@ -97,14 +97,14 @@ class WeatherController implements ContainerInjectableInterface
 
             $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-   
+
             // Merge location data with ip data
             $data = array_merge($data, (array)$locationInfo);
         }
-        
+
         if ($ipAddress->isValid() && $geoLocation->geoLocationOK()) {
             $page->add("weather/validIP", $data);
-   
+
             $weatherInfo = array_merge($weatherInfo, (array)$weatherInfoHist);
             $page->add("weather/weather", $weatherInfo);
         } else {

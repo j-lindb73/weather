@@ -45,7 +45,7 @@ class WeatherGeoLocation implements ContainerInjectableInterface
 
     private function geoSetOptCurl($ipAddress)
     {
-        curl_setopt($this->curl, CURLOPT_URL, "http://api.ipstack.com/" . $ipAddress . "?access_key=" . $this->apiKey ."&fields=latitude,longitude,city");
+        curl_setopt($this->curl, CURLOPT_URL, "http://api.ipstack.com/" . $ipAddress . "?access_key=" . $this->apiKey . "&fields=latitude,longitude,city");
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
     }
 

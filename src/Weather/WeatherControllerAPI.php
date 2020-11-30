@@ -43,7 +43,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
         $this->db = "active";
     }
 
-    
+
         /**
     * This is the index method action, it handles:
     * ANY METHOD mountpoint
