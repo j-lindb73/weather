@@ -20,8 +20,6 @@ matrix:
 #         organization: "canax"
 
 before_script:
-    - composer require lefty/weather
-    - bash vendor/lefty/weather/.anax/scaffold/postprocess.d/6xx_weather.bash
     - make install
 
 script:
