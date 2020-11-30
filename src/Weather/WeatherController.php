@@ -22,7 +22,7 @@ class WeatherController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    
+
     /**
      * @var string $db a sample member variable that gets initialised
      */
@@ -37,7 +37,7 @@ class WeatherController implements ContainerInjectableInterface
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         // Use to initialise member variables.
         $this->db = "active";
@@ -52,21 +52,21 @@ class WeatherController implements ContainerInjectableInterface
     *
     * @return object
     */
-    public function indexActionGet() : object
+    public function indexActionGet(): object
     {
         $request     = $this->di->get("request");
         $iptocheck = $request->getGet("ip") ?? "";
 
-        
+
         // Prepare page
         $page = $this->di->get("page");
         $page->add("weather/index");
         $title = "Weather | ramverk1";
-        
+
         // Validate IP
         $ipAddress = new WeatherIpValidation($iptocheck);
         $data = $ipAddress->answer();
-        
+
         if (empty($iptocheck)) {
             return $page->render([
                 "title" => $title,
@@ -92,19 +92,19 @@ class WeatherController implements ContainerInjectableInterface
             $weatherRequest->setAPI("openweathermap");
             $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
             $weatherInfo = (array)$weatherRequest->getWeather();
-            
+
         // Get Weather information Historical Data
 
             $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-            
+   
             // Merge location data with ip data
             $data = array_merge($data, (array)$locationInfo);
         }
         
         if ($ipAddress->isValid() && $geoLocation->geoLocationOK()) {
             $page->add("weather/validIP", $data);
-            
+   
             $weatherInfo = array_merge($weatherInfo, (array)$weatherInfoHist);
             $page->add("weather/weather", $weatherInfo);
         } else {
@@ -124,21 +124,21 @@ class WeatherController implements ContainerInjectableInterface
     *
     * @return object
     */
-    public function indexActionPost() : object
+    public function indexActionPost(): object
     {
         $request     = $this->di->get("request");
         $iptocheck = $request->getPost("ip") ?? "";
 
-        
+
         // Prepare page
         $page = $this->di->get("page");
         $page->add("weather/index");
         $title = "Weather | ramverk1";
-        
+
         // Validate IP
         $ipAddress = new WeatherIpValidation($iptocheck);
         $data = $ipAddress->answer();
-        
+
         if (empty($iptocheck)) {
             return $page->render([
                 "title" => $title,
@@ -164,19 +164,19 @@ class WeatherController implements ContainerInjectableInterface
             $weatherRequest->setAPI("openweathermap");
             $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
             $weatherInfo = (array)$weatherRequest->getWeather();
-            
+
         // Get Weather information Historical Data
 
             $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-            
+
             // Merge location data with ip data
             $data = array_merge($data, (array)$locationInfo);
         }
-        
+
         if ($ipAddress->isValid() && $geoLocation->geoLocationOK()) {
             $page->add("weather/validIP", $data);
-            
+
             $weatherInfo = array_merge($weatherInfo, (array)$weatherInfoHist);
             $page->add("weather/weather", $weatherInfo);
         } else {

@@ -22,7 +22,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    
+
     /**
      * @var string $db a sample member variable that gets initialised
      */
@@ -37,7 +37,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         // Use to initialise member variables.
         $this->db = "active";
@@ -52,7 +52,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
     *
     * @return object
     */
-    public function indexActionGet() : array
+    public function indexActionGet(): array
     {
         $request     = $this->di->get("request");
         $iptocheck = $request->getGet("ip") ?? "";
@@ -61,7 +61,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
         // Validate IP
         $ipAddress = new WeatherIpValidation($iptocheck);
         $data = $ipAddress->answer();
-        
+
         // Get IP location
         $geoLocation = new WeatherGeoLocation($iptocheck);
         $geoLocation->setDI($this->di);
@@ -77,11 +77,11 @@ class WeatherControllerAPI implements ContainerInjectableInterface
             $weatherRequest->setAPI("openweathermap");
             $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
             $weatherInfo = (array)$weatherRequest->getWeather();
-            
+
             // Get Weather information Historical Data
             $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-            
+
 
 
             // Merge location data with ip data
@@ -102,7 +102,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
     *
     * @return object
     */
-    public function indexActionPost() : array
+    public function indexActionPost(): array
     {
         $request     = $this->di->get("request");
         $iptocheck = $request->getPost("ip") ?? "";
@@ -111,7 +111,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
         // Validate IP
         $ipAddress = new WeatherIpValidation($iptocheck);
         $data = $ipAddress->answer();
-        
+
         // Get IP location
         $geoLocation = new WeatherGeoLocation($iptocheck);
         $geoLocation->setDI($this->di);
@@ -131,8 +131,8 @@ class WeatherControllerAPI implements ContainerInjectableInterface
             // Get Weather information Historical Data
             $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-            
-            
+
+
             // Merge location data with ip data
             $data = array_merge($data, (array)$locationInfo);
             $weatherArray = array("weatherInfo" => (array)$weatherInfo);

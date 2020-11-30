@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Lefty\Weather;
 
 use Anax\Commons\ContainerInjectableInterface;
@@ -23,7 +22,6 @@ use Anax\Commons\ContainerInjectableTrait;
 
 class WeatherIpValidation implements ContainerInjectableInterface
 {
-
     use ContainerInjectableTrait;
 
     private $ipAddress = "";
@@ -42,8 +40,8 @@ class WeatherIpValidation implements ContainerInjectableInterface
         //     $this->geoLocation($this->ipAddress);
         // }
     }
-    
-    
+
+
     private function validate()
     {
         if (filter_var($this->ipAddress, FILTER_VALIDATE_IP)) {
@@ -84,7 +82,7 @@ class WeatherIpValidation implements ContainerInjectableInterface
     {
         return $this->hostname;
     }
-    
+
     public function isValidMessage()
     {
         return $this->isValidMessage;
@@ -103,7 +101,7 @@ class WeatherIpValidation implements ContainerInjectableInterface
             "hostname" => $this->getHostname(),
             "geoLocation" => $this->getGeoLocation()
             ];
-        
+
         return $data;
     }
 }
