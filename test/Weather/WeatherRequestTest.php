@@ -50,7 +50,7 @@ class WeatherRequestTest extends TestCase
      */
     public function testCheckWeather()
     {
-        
+
         $geoLocation = new WeatherGeoLocation();
 
         $geoL = (object) [
@@ -61,7 +61,7 @@ class WeatherRequestTest extends TestCase
 
         $geoLocation->setGeoLocation($geoL);
 
-        
+
 
         $this->weather->checkWeather($geoLocation);
         // $this->weather->checkWeather("10","10");
@@ -76,11 +76,9 @@ class WeatherRequestTest extends TestCase
      */
     public function testCheckWeatherMulti()
     {
-        $res = $this->weather->checkWeatherMulti("10","10");
+        $res = $this->weather->checkWeatherMulti("10", "10");
 
 
         $this->assertContains("Invalid API key", $res[0]->message);
     }
-
-    
 }

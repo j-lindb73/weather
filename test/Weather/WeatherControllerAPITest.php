@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class WeatherControllerAPITest extends TestCase
 {
-    
+
     // Create the di container.
     protected $di;
     protected $controller;

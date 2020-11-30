@@ -1,6 +1,18 @@
 Revision history
 =================================
 
+
+
+v2.1.2 (2020-11-30)
+---------------------------------
+* Test corrections
+
+
+v2.1.1 (2020-11-30)
+---------------------------------
+* Added changes that were missed due to GIT misuse
+
+
 v2.1.0 (2020-11-30)
 ---------------------------------
 * Added changes that were missed due to GIT misuse
