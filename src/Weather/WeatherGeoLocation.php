@@ -66,6 +66,11 @@ class WeatherGeoLocation implements ContainerInjectableInterface
         return $this->geoLocation;
     }
 
+    public function setGeoLocation($geoLocation)
+    {
+        $this->geoLocation = $geoLocation;
+    }
+
     public function geoLocationOK()
     {
         
