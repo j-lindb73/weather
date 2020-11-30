@@ -3,6 +3,10 @@ Revision history
 
 v2.1.0 (2020-11-30)
 ---------------------------------
+* Added changes that were missed due to GIT misuse
+
+v2.1.0 (2020-11-30)
+---------------------------------
 * Added framework services for testing purpose
 
 v2.0.1 (2020-11-24)
