@@ -34,7 +34,7 @@ composer update
 
 ### Step 2, integrate into your Anax base.
 
-Make use of scaffolding to integrate module parts in Anax
+Integrate module parts in Anax with bash-script
 
 Run bash script
 ```
