@@ -79,7 +79,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
             $weatherInfo = (array)$weatherRequest->getWeather();
 
             // Get Weather information Historical Data
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
+            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
 
 
@@ -125,11 +125,11 @@ class WeatherControllerAPI implements ContainerInjectableInterface
             $weatherRequest = new WeatherRequest("openweathermap");
             $weatherRequest->setDI($this->di);
             $weatherRequest->setAPI("openweathermap");
-            $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
+            $weatherRequest->checkWeather($geoLocation);
             $weatherInfo = (array)$weatherRequest->getWeather();
 
             // Get Weather information Historical Data
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
+            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
 
 

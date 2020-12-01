@@ -39,14 +39,17 @@ class WeatherRequest implements ContainerInjectableInterface
         $this->geoCloseCurl();
     }
 
-    public function checkWeatherMulti(string $latitude, string $longitude)
+    public function checkWeatherMulti(object $geoLocation)
     {
+        $lon = $geoLocation->getGeoLocation()->longitude;
+        $lat = $geoLocation->getGeoLocation()->latitude;
+
         $multiRequests = [];
 
         for ($i = 0; $i < 5; $i++) {
             $unixTime = time() - ($i * 24 * 60 * 60);
 
-            $multiRequests[] = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=' . $latitude . '&lon=' . $longitude . '&dt=' . $unixTime . '&units=metric&appid=' . $this->apiKey;
+            $multiRequests[] = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=' . $lat . '&lon=' . $lon . '&dt=' . $unixTime . '&units=metric&appid=' . $this->apiKey;
         }
 
         $multiHandle = curl_multi_init();

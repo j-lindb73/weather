@@ -95,7 +95,7 @@ class WeatherController implements ContainerInjectableInterface
 
         // Get Weather information Historical Data
 
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
+            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
 
             // Merge location data with ip data
@@ -162,12 +162,12 @@ class WeatherController implements ContainerInjectableInterface
             $weatherRequest = new WeatherRequest("openweathermap");
             $weatherRequest->setDI($this->di);
             $weatherRequest->setAPI("openweathermap");
-            $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
+            $weatherRequest->checkWeather($geoLocation);
             $weatherInfo = (array)$weatherRequest->getWeather();
 
         // Get Weather information Historical Data
 
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($locationInfo->latitude, $locationInfo->longitude));
+            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
             $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
 
             // Merge location data with ip data
