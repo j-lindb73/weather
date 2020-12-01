@@ -27,7 +27,7 @@ class WeatherRequest implements ContainerInjectableInterface
         $this->apiKey = $this->di->get("keystore")->getKey($key);
     }
 
-    public function checkWeather($geoLocation)
+    public function checkWeather(object $geoLocation)
     {
         // var_dump($geoLocation);
         // var_dump($geoLocation->getGeoLocation()["latitude"]);

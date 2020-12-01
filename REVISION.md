@@ -2,6 +2,11 @@ Revision history
 =================================
 
 
+v2.2.2 (2020-12-01)
+---------------------------------
+* Corrected bug (Passing float instead of object)
+
+
 v2.2.1 (2020-12-01)
 ---------------------------------
 * Completed testing services

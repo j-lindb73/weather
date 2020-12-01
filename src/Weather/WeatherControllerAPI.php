@@ -75,7 +75,7 @@ class WeatherControllerAPI implements ContainerInjectableInterface
             $weatherRequest = new WeatherRequest("openweathermap");
             $weatherRequest->setDI($this->di);
             $weatherRequest->setAPI("openweathermap");
-            $weatherRequest->checkWeather($locationInfo->latitude, $locationInfo->longitude);
+            $weatherRequest->checkWeather($geoLocation);
             $weatherInfo = (array)$weatherRequest->getWeather();
 
             // Get Weather information Historical Data
