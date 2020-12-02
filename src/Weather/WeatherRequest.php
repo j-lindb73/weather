@@ -33,7 +33,6 @@ class WeatherRequest implements ContainerInjectableInterface
         // var_dump($geoLocation->geoLocationOK());
         // var_dump($geoLocation->getGeoLocation()["latitude"]);
         if ($geoLocation->geoLocationOK() === true) {
-
             $lon = $geoLocation->getGeoLocation()->longitude;
             $lat = $geoLocation->getGeoLocation()->latitude;
             $this->geoInitCurl();
