@@ -57,10 +57,6 @@ class WeatherController implements ContainerInjectableInterface
         $request     = $this->di->get("request");
         $iptocheck = $request->getGet("ip") ?? "";
 
-        $weatherInfo = [];
-        $weatherInfoHist = [];
-
-
         // Prepare page
         $page = $this->di->get("page");
         $page->add("weather/index");
@@ -130,10 +126,6 @@ class WeatherController implements ContainerInjectableInterface
     {
         $request     = $this->di->get("request");
         $iptocheck = $request->getPost("ip") ?? "";
-
-        $weatherInfo = [];
-        $weatherInfoHist = [];
-
 
         // Prepare page
         $page = $this->di->get("page");
