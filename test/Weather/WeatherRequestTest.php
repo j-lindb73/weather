@@ -40,6 +40,17 @@ class WeatherRequestTest extends TestCase
         $this->weather->setDI($this->di);
 
 
+        $this->geoLocation = new WeatherGeoLocation();
+
+        $geoL = (object) [
+            "latitude" => 56.16122055053711,
+            "longitude" => 15.586899757385254,
+            "city" => "Karlskrona"
+        ];
+
+        $this->geoLocation->setGeoLocation($geoL);
+
+
         // $this->weather->initialize();
     }
 
@@ -51,19 +62,8 @@ class WeatherRequestTest extends TestCase
     public function testCheckWeather()
     {
 
-        $geoLocation = new WeatherGeoLocation();
 
-        $geoL = (object) [
-            "latitude" => 56.16122055053711,
-            "longitude" => 15.586899757385254,
-            "city" => "Karlskrona"
-        ];
-
-        $geoLocation->setGeoLocation($geoL);
-
-
-
-        $this->weather->checkWeather($geoLocation);
+        $this->weather->checkWeather($this->geoLocation);
         // $this->weather->checkWeather("10","10");
 
         $res = $this->weather->getWeather();
@@ -76,7 +76,7 @@ class WeatherRequestTest extends TestCase
      */
     public function testCheckWeatherMulti()
     {
-        $res = $this->weather->checkWeatherMulti("10", "10");
+        $res = $this->weather->checkWeatherMulti($this->geoLocation);
 
 
         $this->assertContains("Invalid API key", $res[0]->message);

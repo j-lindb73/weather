@@ -21,6 +21,7 @@ class WeatherRequest implements ContainerInjectableInterface
 
     private $curl = "";
     private $apiKey = "";
+    private $geoLocation = [];
 
     public function setAPI(string $key)
     {
@@ -29,54 +30,60 @@ class WeatherRequest implements ContainerInjectableInterface
 
     public function checkWeather(object $geoLocation)
     {
-        // var_dump($geoLocation);
+        // var_dump($geoLocation->geoLocationOK());
         // var_dump($geoLocation->getGeoLocation()["latitude"]);
-        $lon = $geoLocation->getGeoLocation()->longitude;
-        $lat = $geoLocation->getGeoLocation()->latitude;
-        $this->geoInitCurl();
-        $this->geoSetOptCurl($lat, $lon);
-        $this->geoExecuteCurl();
-        $this->geoCloseCurl();
+        if ($geoLocation->geoLocationOK() === true) {
+
+            $lon = $geoLocation->getGeoLocation()->longitude;
+            $lat = $geoLocation->getGeoLocation()->latitude;
+            $this->geoInitCurl();
+            $this->geoSetOptCurl($lat, $lon);
+            $this->geoExecuteCurl();
+            $this->geoCloseCurl();
+        }
     }
 
     public function checkWeatherMulti(object $geoLocation)
     {
-        $lon = $geoLocation->getGeoLocation()->longitude;
-        $lat = $geoLocation->getGeoLocation()->latitude;
-
-        $multiRequests = [];
-
-        for ($i = 0; $i < 5; $i++) {
-            $unixTime = time() - ($i * 24 * 60 * 60);
-
-            $multiRequests[] = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=' . $lat . '&lon=' . $lon . '&dt=' . $unixTime . '&units=metric&appid=' . $this->apiKey;
+        if ($geoLocation->geoLocationOK() === true) {
+            # code...
+            $lon = $geoLocation->getGeoLocation()->longitude;
+            $lat = $geoLocation->getGeoLocation()->latitude;
+            
+            $multiRequests = [];
+            
+            for ($i = 0; $i < 5; $i++) {
+                $unixTime = time() - ($i * 24 * 60 * 60);
+                
+                $multiRequests[] = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=' . $lat . '&lon=' . $lon . '&dt=' . $unixTime . '&units=metric&appid=' . $this->apiKey;
+            }
+            
+            $multiHandle = curl_multi_init();
+            $curlArray = array();
+            
+            foreach ($multiRequests as $i => $url) {
+                $curlArray[$i] = curl_init($url);
+                curl_setopt($curlArray[$i], CURLOPT_RETURNTRANSFER, true);
+                curl_multi_add_handle($multiHandle, $curlArray[$i]);
+            }
+            
+            $running = null;
+            do {
+                usleep(10000);
+                curl_multi_exec($multiHandle, $running);
+            } while ($running > 0);
+            
+            $res = array();
+            foreach ($multiRequests as $i => $url) {
+                $res[$i] = json_decode(curl_multi_getcontent($curlArray[$i]));
+            }
+            
+            foreach ($multiRequests as $i => $url) {
+                curl_multi_remove_handle($multiHandle, $curlArray[$i]);
+            }
+            curl_multi_close($multiHandle);
+            return $res;
         }
-
-        $multiHandle = curl_multi_init();
-        $curlArray = array();
-
-        foreach ($multiRequests as $i => $url) {
-            $curlArray[$i] = curl_init($url);
-            curl_setopt($curlArray[$i], CURLOPT_RETURNTRANSFER, true);
-            curl_multi_add_handle($multiHandle, $curlArray[$i]);
-        }
-
-        $running = null;
-        do {
-            usleep(10000);
-            curl_multi_exec($multiHandle, $running);
-        } while ($running > 0);
-
-        $res = array();
-        foreach ($multiRequests as $i => $url) {
-            $res[$i] = json_decode(curl_multi_getcontent($curlArray[$i]));
-        }
-
-        foreach ($multiRequests as $i => $url) {
-            curl_multi_remove_handle($multiHandle, $curlArray[$i]);
-        }
-        curl_multi_close($multiHandle);
-        return $res;
     }
 
     private function geoInitCurl()

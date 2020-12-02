@@ -71,25 +71,23 @@ class WeatherControllerAPI implements ContainerInjectableInterface
 
 
         // Get Weather information
-        if ($geoLocation->geoLocationOK() == true) {
-            $weatherRequest = new WeatherRequest("openweathermap");
-            $weatherRequest->setDI($this->di);
-            $weatherRequest->setAPI("openweathermap");
-            $weatherRequest->checkWeather($geoLocation);
-            $weatherInfo = (array)$weatherRequest->getWeather();
-
-            // Get Weather information Historical Data
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
-            $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
-
-
-
-            // Merge location data with ip data
-            $data = array_merge($data, (array)$locationInfo);
-            $weatherArray = array("weatherInfo" => (array)$weatherInfo);
-            $data = array_merge($data, $weatherArray);
-            // $data = array_merge($data, (array)$weatherInfo);
-        }
+        $weatherRequest = new WeatherRequest();
+        $weatherRequest->setDI($this->di);
+        $weatherRequest->setAPI("openweathermap");
+        $weatherRequest->checkWeather($geoLocation);
+        $weatherInfo = (array)$weatherRequest->getWeather();
+        
+        // Get Weather information Historical Data
+        $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
+        $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
+        
+        
+        
+        // Merge location data with ip data
+        $data = array_merge($data, (array)$locationInfo);
+        $weatherArray = array("weatherInfo" => (array)$weatherInfo);
+        $data = array_merge($data, $weatherArray);
+        // $data = array_merge($data, (array)$weatherInfo);
 
         return [$data];
     }
@@ -121,23 +119,22 @@ class WeatherControllerAPI implements ContainerInjectableInterface
 
 
         // Get Weather information
-        if ($geoLocation->geoLocationOK() == true) {
-            $weatherRequest = new WeatherRequest("openweathermap");
-            $weatherRequest->setDI($this->di);
-            $weatherRequest->setAPI("openweathermap");
-            $weatherRequest->checkWeather($geoLocation);
-            $weatherInfo = (array)$weatherRequest->getWeather();
 
-            // Get Weather information Historical Data
-            $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
-            $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
+        $weatherRequest = new WeatherRequest("openweathermap");
+        $weatherRequest->setDI($this->di);
+        $weatherRequest->setAPI("openweathermap");
+        $weatherRequest->checkWeather($geoLocation);
+        $weatherInfo = (array)$weatherRequest->getWeather();
+
+        // Get Weather information Historical Data
+        $weatherInfoHist = array("weatherInfoHistorical" => $weatherRequest->checkWeatherMulti($geoLocation));
+        $weatherInfo = array_merge($weatherInfo, $weatherInfoHist);
 
 
-            // Merge location data with ip data
-            $data = array_merge($data, (array)$locationInfo);
-            $weatherArray = array("weatherInfo" => (array)$weatherInfo);
-            $data = array_merge($data, $weatherArray);
-        }
+        // Merge location data with ip data
+        $data = array_merge($data, (array)$locationInfo);
+        $weatherArray = array("weatherInfo" => (array)$weatherInfo);
+        $data = array_merge($data, $weatherArray);
 
         return [$data];
     }
