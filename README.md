@@ -1,5 +1,5 @@
 [![Latest Stable Version](https://poser.pugx.org/lefty/weather/v/stable)](https://packagist.org/packages/lefty/weather)
-[![Build Status](https://travis-ci.org/j-lindb73/weather.svg?branch=master)](https://travis-ci.org/github/j-lindb73/weather)
+[![Build Status](https://travis-ci.com/j-lindb73/weather.svg?branch=main)](https://travis-ci.com/github/j-lindb73/weather)
 [![CircleCI](https://circleci.com/gh/j-lindb73/weather.svg?style=svg)](https://circleci.com/gh/j-lindb73/weather/)
 [![Build Status](https://scrutinizer-ci.com/g/j-lindb73/weather/badges/build.png?b=main)](https://scrutinizer-ci.com/g/j-lindb73/weather/build-status/main)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/j-lindb73/weather/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/j-lindb73/weather/?branch=main)
