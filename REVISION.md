@@ -2,6 +2,12 @@ Revision history
 =================================
 
 
+v2.2.3 (2020-12-03)
+---------------------------------
+* Codequality changes
+* CircleCI added
+
+
 v2.2.2 (2020-12-01)
 ---------------------------------
 * Corrected bug (Passing float instead of object)
